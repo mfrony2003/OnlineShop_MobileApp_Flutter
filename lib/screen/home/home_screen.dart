@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_store_application/constants.dart';
 import 'package:online_store_application/screen/home/components/body.dart';
+import 'package:online_store_application/screen/home/components/tabbar.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(),
-      body: Body(),
-    );
+    return TabBarItems();
+    // return Scaffold(
+    //   appBar: buildAppBar(),
+    //   body: Body(),
+    // );
   }
 
   AppBar buildAppBar() {
