@@ -1,46 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:online_store_application/screen/home/components/MainTabItem.dart';
+import 'package:online_store_application/screen/home/home_screen.dart';
+import '../../constants.dart';
 
-class manTab extends StatelessWidget {
+class MainTab extends StatelessWidget {
+  List<String> items = ['Men', 'Women', 'Kids'];
+  List<String> itemsImage = ['men.jpg', 'women.jpg', 'kid.jpg'];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          height: size.height * 0.27,
-          decoration: BoxDecoration(
-              color: Colors.amberAccent,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(54),
-                  topRight: Radius.circular(54),
-                  bottomLeft: Radius.circular(54),
-                  bottomRight: Radius.circular(54))),
-        ),
-        Container(
-          height: size.height * 0.27,
-          decoration: BoxDecoration(
-              color: Colors.yellow,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(54),
-                  topRight: Radius.circular(54),
-                  bottomLeft: Radius.circular(54),
-                  bottomRight: Radius.circular(54))),
-        ),
-        Container(
-          height: size.height * 0.32,
-          decoration: BoxDecoration(
-              color: Colors.cyan,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(54),
-                  topRight: Radius.circular(54),
-                  bottomLeft: Radius.circular(54),
-                  bottomRight: Radius.circular(54))),
-        ),
-      ],
-    ));
+    return Scaffold(
+        body: Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: GridView.builder(
+              itemCount: items.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisSpacing: kDefaultPadding * .3,
+                  crossAxisSpacing: kDefaultPadding,
+                  childAspectRatio: 0.75),
+              itemBuilder: (context, index) => MainTabItem(
+                inmagePath: "assets/images/" + itemsImage[index],
+                press: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomeScreen(
+                              itemtype: items[index],
+                            ))),
+              ),
+            )));
   }
 }

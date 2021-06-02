@@ -8,6 +8,9 @@ import 'package:online_store_application/screen/home/components/product_screen.d
 import '../../../constants.dart';
 
 class TabBarItems extends StatelessWidget {
+  final String itemType;
+
+  const TabBarItems({Key key, this.itemType}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -16,7 +19,7 @@ class TabBarItems extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: Text(
-              'AFZ Closert',
+              itemType,
               style: const TextStyle(
                   color: Colors.amber, fontWeight: FontWeight.bold),
             ),

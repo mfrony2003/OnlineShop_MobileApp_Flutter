@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:online_store_application/DataAccessLaye/DbInit.dart';
 import 'package:online_store_application/constants.dart';
 import 'package:online_store_application/screen/home/home_screen.dart';
+import 'package:online_store_application/screen/home/maintab.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             textTheme:
                 Theme.of(context).textTheme.apply(bodyColor: kTextColor)),
-        home: new HomeScreen());
+        home: new MainTab());
   }
 }
