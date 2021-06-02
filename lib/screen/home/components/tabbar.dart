@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:online_store_application/DataAccessLaye/productFacade.dart';
 import 'package:online_store_application/model/Product.dart';
+
 import 'package:online_store_application/screen/home/components/product_screen.dart';
 
 import '../../../constants.dart';
@@ -9,8 +11,8 @@ class TabBarItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
-        child: Scaffold(
+      length: 3,
+      child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: Text(
@@ -74,7 +76,7 @@ class TabBarItems extends StatelessWidget {
                               Border.all(color: Colors.redAccent, width: 1)),
                       child: Align(
                         alignment: Alignment.center,
-                        child: Text("MOVIES"),
+                        child: Text("Shoes"),
                       ),
                     ),
                   ),
@@ -86,17 +88,37 @@ class TabBarItems extends StatelessWidget {
                               Border.all(color: Colors.redAccent, width: 1)),
                       child: Align(
                         alignment: Alignment.center,
-                        child: Text("GAMES"),
+                        child: Text("Jweleary"),
                       ),
                     ),
                   ),
                 ]),
           ),
-          body: TabBarView(children: [
-            Product_Screen(product_bags: products_bags),
-            Product_Screen(product_bags: products_shoes),
-            Icon(Icons.games),
-          ]),
-        ));
+          body: FutureBuilder<List<Product>>(
+            future: new ProductFacade().GetAllProducts(Item.ShoppingBag),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
+              if (snapshot.hasData) {
+                return TabBarView(children: [
+                  Product_Screen(
+                      products: snapshot.data
+                          .where((element) => element.productType == 2)
+                          .toList()),
+                  Product_Screen(
+                      products: snapshot.data
+                          .where((element) => element.productType == 1)
+                          .toList()),
+                  Icon(Icons.games),
+                ]);
+              } else {
+                return TabBarView(children: [
+                  Product_Screen(products: []),
+                  Product_Screen(products: []),
+                  Icon(Icons.games),
+                ]);
+              }
+            },
+          )),
+    );
   }
 }
